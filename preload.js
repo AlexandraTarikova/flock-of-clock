@@ -1,5 +1,5 @@
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('clocks', {
-  get: () => ipcRenderer.invoke('clocks:get')
-})
+  get: () => ipcRenderer.invoke('clocks:get'),
+});

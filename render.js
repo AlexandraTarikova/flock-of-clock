@@ -1,4 +1,4 @@
-const CLOCK_INTERVAL = 60 * 1000
+const CLOCK_INTERVAL = 60 * 1000;
 
 const overrides = `
   html, body { overflow: hidden }
@@ -16,8 +16,8 @@ function injectStyles(html, css) {
 
 function stripHtmlFence(value) {
   return value
-    .replace(/^\s*```html\s*(?:\r?\n)?/i, "")
-    .replace(/(?:\r?\n)?\s*```\s*$/, "");
+    .replace(/^\s*```html\s*(?:\r?\n)?/i, '')
+    .replace(/(?:\r?\n)?\s*```\s*$/, '');
 }
 
 async function setClock() {
@@ -32,6 +32,7 @@ async function setClock() {
     iframe.width = '100%';
     iframe.height = '100%';
     iframe.title = 'Runtime Iframe';
+    iframe.sandbox = '';
 
     document.getElementById('model-info').textContent = model;
     document.getElementById('put-clock-here').replaceChildren(iframe);
@@ -40,14 +41,14 @@ async function setClock() {
 
 function getTiming() {
   const now = new Date();
-  const seconds = now.getSeconds(); 
+  const seconds = now.getSeconds();
   return CLOCK_INTERVAL - seconds * 1000;
 }
 
 function scheduleRerender() {
-  const timer = getTiming()
+  const timer = getTiming();
   if (timer > 3000) setClock();
-  setTimeout(scheduleRerender, getTiming())
+  setTimeout(scheduleRerender, getTiming());
 }
 
 scheduleRerender();
