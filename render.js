@@ -1,3 +1,5 @@
+const CLOCK_INTERVAL = 60 * 1000
+
 const overrides = `
   html, body { overflow: hidden }
 `;
@@ -12,38 +14,40 @@ function injectStyles(html, css) {
   return `${styleTag}${html}`;
 }
 
-function getRandomKey(object) {
-  const keys = Object.keys(object);
-
-  if (keys.length === 0) {
-    return undefined;
-  }
-
-  return keys[Math.floor(Math.random() * keys.length)];
-}
-
 function stripHtmlFence(value) {
   return value
     .replace(/^\s*```html\s*(?:\r?\n)?/i, "")
     .replace(/(?:\r?\n)?\s*```\s*$/, "");
 }
 
-const setClock = async () => {
-  const data = await window.clocks.get()
+async function setClock() {
+  const clockObj = await window.clocks.get();
+
+  const model = Object.keys(clockObj.clocks)[0];
+  const body = clockObj.clocks[model];
+
   const iframe = document.createElement('iframe');
-  const key = getRandomKey(data.clocks);
-  if (key) {
-    iframe.srcdoc = injectStyles(stripHtmlFence(data.clocks[key]), overrides);
+  if (model) {
+    iframe.srcdoc = injectStyles(stripHtmlFence(body), overrides);
     iframe.width = '100%';
     iframe.height = '100%';
     iframe.title = 'Runtime Iframe';
 
-    document.getElementById('model-info').textContent = key;
+    document.getElementById('model-info').textContent = model;
     document.getElementById('put-clock-here').replaceChildren(iframe);
   }
 }
 
-setClock();
-setInterval(async () => {
-  setClock();
-}, 60000)
+function getTiming() {
+  const now = new Date();
+  const seconds = now.getSeconds(); 
+  return CLOCK_INTERVAL - seconds * 1000;
+}
+
+function scheduleRerender() {
+  const timer = getTiming()
+  if (timer > 3000) setClock();
+  setTimeout(scheduleRerender, getTiming())
+}
+
+scheduleRerender();

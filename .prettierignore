@@ -1,0 +1,16 @@
+# Ignore artifacts:
+node_modules/
+
+out/
+
+.DS_Store
+
+favourites_temp.json
+
+favourites.json
+
+fallback.html
+
+package-lock.json
+
+README.md

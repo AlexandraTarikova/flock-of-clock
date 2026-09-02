@@ -7,7 +7,8 @@
   "scripts": {
     "start": "electron .",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "prettier": "prettier . --write"
   },
   "author": "Alexandra Tarikova",
   "devDependencies": {
@@ -19,10 +20,9 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.11.2",
     "@electron-forge/plugin-fuses": "^7.11.2",
     "@electron/fuses": "^1.8.0",
-    "electron": "^44.0.0"
+    "electron": "^44.0.0",
+    "prettier": "3.9.6"
   },
   "private": true,
-  "license": "UNLICENSED",
-  "dependencies": {
-  }
+  "license": "UNLICENSED"
 }

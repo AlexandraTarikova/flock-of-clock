@@ -4,3 +4,5 @@ node_modules/
 out/
 
 .DS_Store
+
+favourites_temp.json
