@@ -63,12 +63,11 @@ its position on a 12-hour dial. A clock generated at 2:23 is correct again at
 entries — about 2.3 MB — covers every possible minute. It fills in on its own as
 the app runs.
 
-When a fetch fails, the app tries in order:
-
-1. the cached clock for the current minute, if it has one — correct time
-2. a random clock from `favourites.json`, bundled with the repo — wrong time,
-   but a nice-looking clock beats the same one every time
-3. `fallback.html`, a deliberately silly hand-made clock called Bob 1.0
+When a fetch fails, the app uses the cached clock for the current minute if it
+has one — right time, wrong day. Failing that, it picks at random from
+`favourites.json` plus `fallback.html` — a deliberately silly hand-made clock
+called Bob 1.0, added to the pool so it is never empty. Wrong time, but a
+nice-looking clock beats the same one every time.
 
 ## Collecting favourites
 
