@@ -10,6 +10,24 @@ completes a full revolution every two seconds. That's the appeal.
 
 It is, functionally, a fidget spinner for your eyes.
 
+## What it looks like
+
+<img src="example_1.png" alt="A DeepSeek V3.1 clock parked in the corner over a code editor" width="360">
+
+Parked in the corner while you work. This is DeepSeek V3.1, which has opinions
+about which way up a number goes.
+
+<img src="example_2.jpg" alt="A GPT-5 clock parked beside a windowed Balatro game" width="760">
+
+GPT-5 keeping time over a run of Balatro — always-on-top means it could have
+been put over, but I didn't want it blocking anything.
+
+<img src="example_live.jpg" alt="The app's Qwen 2.5 clock overlapping the identical Qwen 2.5 clock on clocks.brianmoore.com" width="760">
+
+And since the clocks come from a live page, you can catch one sitting next to its
+own twin: the app's Qwen 2.5 on top, the source site's underneath it. Nothing is
+reimplemented here — it is the model's own HTML either way.
+
 ## Running it
 
 ```sh
@@ -69,6 +87,14 @@ npm run make
 
 Built and tested on macOS. The transparency and always-on-top behaviour is
 platform-specific and hasn't been checked anywhere else.
+
+## Blocked scripts
+
+Some models build part of the UI from an inline `<script>`. That never runs here: 
+`render.js` sets `iframe.sandbox = ''`, and `index.html`'s `script-src 'self'` is inherited by the `srcdoc` document.
+
+This is deliberate — the app renders arbitrary HTML off the network once a
+minute. The cost is that about one clock in ten arrives looking different from its live-site twin.
 
 ## Credit
 
